@@ -21,13 +21,13 @@
 * @copyright  2016 Cristobal Silva (cristobal.isilvap@gmail.com)
 * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
-defined('MOODLE_INTERNAL') || die();
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
+defined("MOODLE_INTERNAL") || die();
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config.php");
 require_once("$CFG->libdir/formslib.php");
 
 class foroprofes_teachers_form extends moodleform {
 	public function definition(){
-		global $DB, $CFG;
+		global $DB;
 		$sqlteachers = "SELECT DISTINCT u.id, CONCAT (u.firstname, ' ', u.lastname)AS name
 					FROM {user} u
 					INNER JOIN {role_assignments} ra ON (ra.userid = u.id)
@@ -46,6 +46,9 @@ class foroprofes_teachers_form extends moodleform {
 	public function validation($data, $files) {
 		$errors = array();
 		$teacher = $data["teacher"];
+		if($teacher == "no"){
+			$errors["teacher"] = "Profesor invalido";
+		}
 	
 		return $errors;
 	}

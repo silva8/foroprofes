@@ -21,14 +21,12 @@
 * @copyright  2016 Cristobal Silva (cristobal.isilvap@gmail.com)
 * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
-defined('MOODLE_INTERNAL') || die();
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
+defined("MOODLE_INTERNAL") || die();
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config.php");
 require_once("$CFG->libdir/formslib.php");
 
 class foroprofes_newmessage_form extends moodleform {
 	public function definition() {
-		global $DB, $CFG;
-
 		$mform = $this->_form;
 		$instance = $this->_customdata;
 		$teacherid = $instance["teacherid"];
@@ -39,16 +37,14 @@ class foroprofes_newmessage_form extends moodleform {
 		$mform->addElement("hidden", "action", "viewmessages");
 		
 		$this->add_action_buttons(true, "Enviar");
-		
 	}
 	
 	public function validation($data, $files) {
 		$errors = array();
 		$message = $data["message"];
-		if(!isset($message) || empty($message)){
-			$errors["message"] = "Mensaje invalido";
+		if(!isset($message) || empty($message) || $message==" "){
+			$errors["message"] = "Mensaje invalido, ingrese una frase";
 		}
-		
 		return $errors;
 	}
 }

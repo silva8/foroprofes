@@ -21,13 +21,12 @@
 * @copyright  2016 Cristobal Silva (cristobal.isilvap@gmail.com)
 * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
-defined('MOODLE_INTERNAL') || die();
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.php');
+defined("MOODLE_INTERNAL") || die();
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config.php");
 require_once("$CFG->libdir/formslib.php");
 
 class foroprofes_editresponse_form extends moodleform {
 	public function definition(){
-		global $CFG;
 		$mform = $this->_form;
 		$instance = $this->_customdata;
 		$responseid = $instance["responseid"];
@@ -41,8 +40,8 @@ class foroprofes_editresponse_form extends moodleform {
 	public function validation($data, $files) {
 		$errors = array();
 		$response = $data["response"];
-		if(!isset($response) || empty($response)){
-			$errors["response"] = "Respuesta invalida";
+		if(empty($response)){
+			$errors["response"] = "Respuesta invalida, ingrese una frase";
 		}
 		return $errors;
 	}
